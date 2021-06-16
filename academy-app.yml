@@ -1,0 +1,87 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Academy Automation 
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+#   pull_request_review:
+#     types: 
+#       - submitted
+#   schedule:
+#     - cron: '0 4 * * MON-FRI'
+  workflow_dispatch:
+  
+jobs:
+  job1:
+    name: Academy
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include:
+          - name: 'Login' 
+            test-suite: 'Login'
+#           - name: 'Create Course - Done'       
+#             test-suite: 'Lesson Plan - Create Course\Done (Scheduled Publication)'               
+          - name: 'Create Course - Back And Kebab Menu'       
+            test-suite: 'Lesson Plan - Create Course\Back And Kebab Menu'       
+          - name: 'Create Course - Catalog Brand Field'       
+            test-suite: 'Lesson Plan - Create Course\Catalog Brand Field'       
+          - name: 'Create Course - Catalog MT Fields'       
+            test-suite: 'Lesson Plan - Create Course\Catalog MT Fields'       
+          - name: 'Create Course - Catalog Solutions Fields'       
+            test-suite: 'Lesson Plan - Create Course\Catalog Solutions Fields'   
+          - name: 'Create Course - Course And Learning Objective Fields'       
+            test-suite: 'Lesson Plan - Create Course\Course And Learning Objective Fields'          
+          - name: 'Create Course - Create Course Fields'       
+            test-suite: 'Lesson Plan - Create Course\Create Course Fields'    
+          - name: 'Create Course - Module Section Fields'       
+            test-suite: 'Lesson Plan - Create Course\Module Section Fields'    
+          - name: 'Create Course - File Upload'       
+            test-suite: 'Lesson Plan - Create Course\File Upload'                     
+          - name: 'Landing Page - Roles' 
+            test-suite: 'Lesson Plan - Landing Page\Roles'        
+          - name: 'Landing Page - Empty State'
+            test-suite: 'Lesson Plan - Landing Page\Empty State'       
+          - name: 'Landing Page - Course Tab' 
+            test-suite: 'Lesson Plan - Landing Page\Course Tab'         
+          - name: 'Landing Page - Exam Tab' 
+            test-suite: 'Lesson Plan - Landing Page\Exam Tab' 
+          - name: 'Landing Page - Course Kebab Menu' 
+            test-suite: 'Lesson Plan - Landing Page\Course Kebab Menu'
+          - name: 'Landing Page - Exam Kebab Menu'
+            test-suite: 'Lesson Plan - Landing Page\Exam Kebab Menu'
+          - name: 'Landing Page - Tab Filter and View Options' 
+            test-suite: 'Lesson Plan - Landing Page\Tab Filter and View Options'            
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Robot-Framework-Test
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: |
+        pip install -r requirements.txt
+    - name: Install Chromedriver
+      uses: nanasess/setup-chromedriver@master    
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: |
+        robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
