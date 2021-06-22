@@ -27,8 +27,8 @@ jobs:
         include:
           - name: 'Login' 
             test-suite: 'Login'
-#           - name: 'Create Course - Done'       
-#             test-suite: 'Lesson Plan - Create Course\Done (Scheduled Publication)'               
+          - name: 'Create Course - Done'       
+            test-suite: 'Lesson Plan - Create Course\Done (Scheduled Publication)'               
           - name: 'Create Course - Back And Kebab Menu'       
             test-suite: 'Lesson Plan - Create Course\Back And Kebab Menu'       
           - name: 'Create Course - Catalog Brand Field'       
