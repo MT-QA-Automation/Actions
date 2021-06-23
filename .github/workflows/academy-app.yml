@@ -67,6 +67,8 @@ jobs:
             test-suite: 'Lesson Plan - Landing Page\Course Kebab Menu\Course_Kebab_Menu_1.robot'
           - name: 'Landing Page - Course Kebab Menu 2' 
             test-suite: 'Lesson Plan - Landing Page\Course Kebab Menu\Course_Kebab_Menu_2.robot'
+          - name: 'Landing Page - Course Kebab Menu 3' 
+            test-suite: 'Lesson Plan - Landing Page\Course Kebab Menu\Course_Kebab_Menu_3.robot'
           - name: 'Landing Page - Exam Kebab Menu'
             test-suite: 'Lesson Plan - Landing Page\Exam Kebab Menu'
           - name: 'Landing Page - Tab Filter and View Options' 
