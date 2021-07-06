@@ -27,6 +27,8 @@ jobs:
         include:
           - name: 'Login' 
             test-suite: 'Login'
+          - name: 'Administration Catalog Listing - Catalog List'       
+            test-suite: 'Administration Catalog Listing\Catalog List'    
           - name: 'Create Course - Done'       
             test-suite: 'Lesson Plan - Create Course\Done (Scheduled Publication)'               
           - name: 'Create Course - Back And Kebab Menu 1'       
@@ -51,6 +53,8 @@ jobs:
             test-suite: 'Lesson Plan - Create Course\Create Course Fields\Create_Course_Fields_2.robot'    
           - name: 'Create Course - Module Section Fields'       
             test-suite: 'Lesson Plan - Create Course\Module Section Fields'    
+          - name: 'Create Course - Prerequisite Course Section'       
+            test-suite: 'Lesson Plan - Create Course\Prerequisite Course Section'    
           - name: 'Create Course - File Upload'       
             test-suite: 'Lesson Plan - Create Course\File Upload'                     
           - name: 'Landing Page - Roles' 
