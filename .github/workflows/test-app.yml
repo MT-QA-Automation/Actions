@@ -21,7 +21,7 @@ jobs:
         content="${content//$'\r'/'%0D'}"
         echo "::set-output name=json::$content"
     - run: |
-        echo "${{fromJson(steps.set_matrix.outputs.json)}}"
+        echo ${{fromJson(steps.set_matrix.outputs.json)}}
     outputs: 
       json: ${{ steps.set-matrix.outputs.json }}
   job1:
