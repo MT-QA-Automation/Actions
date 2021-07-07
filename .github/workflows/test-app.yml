@@ -11,6 +11,8 @@ jobs:
     name: Get json file
     runs-on: windows-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
     - name: Get Path From Json file
       id: version
       uses: notiz-dev/github-action-json-property@release
