@@ -1,5 +1,6 @@
 name: 'Install RF Dependencies'
 description: 'Installs the dependencies needed for RF automation'
+author: 'mt-qa-automation'
 inputs: 
   python-version:
     description: 'Specify the version of python to be used' 
