@@ -1,0 +1,8 @@
+{
+    "include": [
+        {
+            "name": "Login",
+            "test-suite": "Login"
+        }
+    ]
+}
