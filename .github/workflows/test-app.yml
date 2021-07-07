@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{"MT-QA-Automation/Actions/test-path.json"}}
+      matrix: ${{MT-QA-Automation/Actions/test-path.json}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
