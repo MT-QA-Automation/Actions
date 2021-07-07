@@ -13,20 +13,20 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-#     - name: Read package.json
-#       id: package
-#       uses: juliangruber/read-file-action@v1
-#       with:
-#         path: test-path.json
-    - run: echo "::set-output name=test-suite::$(cat test-path.json)"
+    - name: Read package.json
+      id: package
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: test-path.json
+    - run: echo "::set-output name=test-suite::${{steps.package.outputs.content}}"
     outputs: 
-      test-suite: ${{steps.version.outputs.test-suite}}   
+      test-suite: ${{ steps.version.outputs.test-suite }}   
   job1:
     name: Academy
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.job0.outputs.test-suite)}}
+      matrix: ${{fromJSON(needs.job0.outputs.test-suite)}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
