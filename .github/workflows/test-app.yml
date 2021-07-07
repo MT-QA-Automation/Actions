@@ -29,7 +29,7 @@ jobs:
             test-suite: 'Login'
     steps:
     - name: Install RF Dependencies
-      uses: MT-QA-Automation/Actions@master
+      uses: MT-QA-Automation/Actions@v1
     - name: Run Robot Tests 
       run: |
         robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
