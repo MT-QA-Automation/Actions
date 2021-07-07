@@ -23,7 +23,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{meeds.job0.version.outputs.suite}} 
+      matrix: ${{needs.job0.version.outputs.suite}} 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
