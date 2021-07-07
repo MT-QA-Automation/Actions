@@ -21,14 +21,14 @@ jobs:
         content="${content//$'\r'/'%0D'}"
         echo "::set-output name=json::$content"
     - run: |
-        echo "${{fromJson(steps.set_value.outputs.json)}}"
+        echo "${{fromJson(steps.set_value.outputs.json).version}}"
   job1:
     needs: job0
     name: Academy
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJSON(needs.job0.set_value.outputs.json)}}
+      matrix: ${{fromJSON(needs.job0.set_value.outputs.json).version}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
