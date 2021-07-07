@@ -8,7 +8,7 @@ on:
   
 jobs:
   job0:
-    name: Get json file
+    name: Output Json File
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -18,15 +18,15 @@ jobs:
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/'%0A'}"
         content="${content//$'\r'/'%0D'}"
-        echo "::set-output name=test-suite::$content"
+        echo "::set-output name=json::$content"
     outputs: 
-      test-suite: ${{ steps.version.outputs.test-suite }}   
+      json: ${{ steps.version.outputs.json }}   
   job1:
     name: Academy
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: "${{fromJSON(needs.job0.outputs.test-suite)}}"
+      matrix: ${{fromJSON(needs.job0.outputs.json)}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
