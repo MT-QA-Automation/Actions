@@ -18,7 +18,7 @@ jobs:
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/'%0A'}"
         content="${content//$'\r'/'%0D'}"
-    - run: echo "::set-output name=test-suite::$content"
+        echo "::set-output name=test-suite::$content"
     outputs: 
       test-suite: ${{ steps.version.outputs.test-suite }}   
   job1:
