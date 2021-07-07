@@ -6,15 +6,15 @@ inputs:
     description: 'Specify the version of python to be used' 
     default: '3.9'
 runs:
-  using: "actions/checkout@v2"
-  with:
-    repository: MT-QA-Automation/Robot-Framework-Test
-    token: ${{ secrets.MT_RF_REPO_PAT }}
-  using: "actions/setup-python@v2"
-  with:
-    python-version: 3.9
-  using: "nanasess/setup-chromedriver@master"
-  using: "composite
+  using: "composite"
   steps:
-    -  run: pip install -r requirements.txt
-    -  run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - uses: actions/checkout@v2
+    with:
+      repository: MT-QA-Automation/Robot-Framework-Test
+      token: ${{ secrets.MT_RF_REPO_PAT }}
+    - uses: actions/setup-python@v2
+    with:
+      python-version: 3.9
+    - uses: nanasess/setup-chromedriver@master
+    - run: pip install -r requirements.txt
+    - run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
