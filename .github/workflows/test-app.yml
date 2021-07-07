@@ -19,13 +19,14 @@ jobs:
       with: 
         path: 'test-path.json'
         prop_path: 'test-suite'
+    - run: echo ${{steps.version.outputs.prop}} 
   job1:
     name: Academy
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        test-suite: ${{needs.job0.outputs.prop}} 
+        test-suite: ${{needs.job0.steps.version.outputs.prop}} 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
