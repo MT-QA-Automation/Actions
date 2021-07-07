@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        test-suite: ${{ needs.job0.outputs.test-suite }} 
+        test-suite: ${{fromJSON(needs.job0.outputs.test-suite)}} 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
