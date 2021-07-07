@@ -25,6 +25,7 @@ jobs:
     outputs: 
       json: ${{ steps.set-matrix.outputs.json }}
   job1:
+    needs: job0
     name: Academy
     runs-on: windows-latest
     strategy:
