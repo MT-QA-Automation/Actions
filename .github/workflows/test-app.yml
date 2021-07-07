@@ -13,12 +13,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Read package.json
-      id: package
-      uses: juliangruber/read-file-action@v1
-      with:
-        path: test-path.json
-    - run: echo "::set-output name=test-suite::$(steps.package.outputs.content)"
+#     - name: Read package.json
+#       id: package
+#       uses: juliangruber/read-file-action@v1
+#       with:
+#         path: test-path.json
+#     - run: echo "::set-output name=test-suite::$(steps.package.outputs.content)"
+    - run: echo "::set-output name=test-suite::$(cat test-path.json)"
     outputs: 
       test-suite: ${{ steps.version.outputs.test-suite }}   
   job1:
