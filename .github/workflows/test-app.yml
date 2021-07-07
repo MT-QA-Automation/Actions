@@ -18,7 +18,7 @@ jobs:
 #       uses: juliangruber/read-file-action@v1
 #       with:
 #         path: test-path.json
-    - run: echo "::set-output name=test-suite::${{cat test-suite.json}}"
+    - run: echo "::set-output name=test-suite::${{cat ./test-suite.json}}"
     outputs: 
       test-suite: ${{steps.version.outputs.test-suite}}   
   job1:
