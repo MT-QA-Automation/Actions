@@ -26,7 +26,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJSON(needs.job0.outputs.test-suite)}}
+      matrix: "${{fromJSON(needs.job0.outputs.test-suite)}}"
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
