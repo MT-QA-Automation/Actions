@@ -18,8 +18,7 @@ jobs:
       uses: notiz-dev/github-action-json-property@release
       with: 
         path: 'test-path.json'
-        name: 'name'
-        suite: 'test-suite'
+        prop_path: 'test-suite'
   job1:
     name: Academy
     runs-on: windows-latest
