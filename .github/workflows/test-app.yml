@@ -24,7 +24,7 @@ jobs:
   job1:
     needs: job0
     name: Academy
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix: ${{fromJSON(needs.job0.outputs.json)}}
