@@ -12,15 +12,15 @@ jobs:
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{steps.version.outputs.test-suite-name}} 
+      matrix: ${{steps.version.outputs.suite}} 
     steps:
     - name: Get Path From Json file
       id: version
       uses: notiz-dev/github-action-json-property@release
       with: 
-        path: 'MT-QA-Automation/Actions/test-path.json'
-        test-name: 'name'
-        test-suite-name: 'test-suite'
+        path: 'test-path.json'
+        name: 'name'
+        suite: 'test-suite'
     - name: Checkout code
       uses: actions/checkout@v2
       with:
