@@ -98,15 +98,13 @@ jobs:
       with:
         python-version: 3.9
     - name: Install Python Libraries
-      run: |
-        pip install -r requirements.txt
+      run: pip install -r requirements.txt
     - name: Install Chromedriver
       uses: nanasess/setup-chromedriver@master    
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: |
-        robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
+      run: robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
