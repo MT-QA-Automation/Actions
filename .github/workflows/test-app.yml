@@ -8,20 +8,32 @@ on:
   
 jobs:
   job1:
-    name: Test
+    name: Academy
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
         include:
           - name: 'Login' 
-            test-suite: 'Login'
+            test-suite: 'Login'      
     steps:
-    - name: Install RF Dependencies
-      uses: MT-QA-Automation/Actions@v1
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Robot-Framework-Test
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      uses: nanasess/setup-chromedriver@master    
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: |
-        robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
+      run: robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
