@@ -6,7 +6,7 @@ inputs:
     description: 'Specify the version of python to be used' 
     default: '3.9'
 runs:
-  using: "composite"
+  using: "windows-latest"
     steps:
     - uses: actions/checkout@v2
       with:
