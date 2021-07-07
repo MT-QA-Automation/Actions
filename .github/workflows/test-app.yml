@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        test-suite: ${{needs.job0.version.outputs.suite}} 
+        test-suite: ${{needs.job0.outputs.prop}} 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
