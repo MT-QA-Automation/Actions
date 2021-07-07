@@ -11,21 +11,14 @@ jobs:
     name: Get json file
     runs-on: windows-latest
     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-#     - name: Get Path From Json file
-#       id: version
-#       uses: notiz-dev/github-action-json-property@release
-#       with: 
-#         path: 'test-path.json'
-#         prop_path: 'test-suite'
-#     - run: echo "::set-output name=test-suite::${{steps.version.outputs.prop}}"
-      - name: Read package.json
-        id: package
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./package.json
-      - run: echo "::set-output name=test-suite::${{ steps.package.outputs.content }}"
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Read package.json
+      id: package
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: test-path.json
+    - run: echo "::set-output name=test-suite::${{ steps.package.outputs.content }}"
     outputs: 
       test-suite: ${{steps.version.outputs.test-suite}}   
   job1:
@@ -33,8 +26,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: 
-        test-suite: ${{ fromJson(needs.job0.outputs.test-suite) }} 
+      matrix: ${{ fromJson(needs.job0.outputs.test-suite) }} 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
