@@ -24,7 +24,8 @@ jobs:
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{needs.job0.version.outputs.suite}} 
+      matrix: 
+        test-suite: ${{needs.job0.version.outputs.suite}} 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -43,9 +44,9 @@ jobs:
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
       run: robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
-    - name: Upload Artifacts
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{matrix.name}} Logs
-        path: Results
+#     - name: Upload Artifacts
+#       if: always()
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: ${{matrix.name}} Logs
+#         path: Results
