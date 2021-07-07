@@ -20,7 +20,7 @@ jobs:
 #         path: test-path.json
 #     - run: echo "::set-output name=test-suite::$(steps.package.outputs.content)"
     - run: |
-        content=`cat test-path.json`
+        content=`cat ./test-path.json`
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/'%0A'}"
         content="${content//$'\r'/'%0D'}"          
