@@ -1,14 +1,18 @@
 
 {
-    "include": [
+    "Login": [
         {
             "name": "Login",
             "test-suite": "Login"
-        },
+        }
+    ],
+    "Admin": [
         {
             "name": "Administration Catalog Listing - Catalog List",
             "test-suite": "Administration Catalog Listing\\Catalog List"
-        },
+        }
+   ],
+   "Create-course": [
         {
             "name": "Create Course - Done 1",
             "test-suite": "Lesson Plan - Create Course\\Done (Scheduled Publication)\\Done_Scheduled_Publication_1.robot"
@@ -76,7 +80,9 @@
         {
             "name": "Create Course - File Upload",
             "test-suite": "Lesson Plan - Create Course\\File Upload"
-        },
+        }
+   ],
+   "Landing-page": [
         {
             "name": "Landing Page - Roles",
             "test-suite": "Lesson Plan - Landing Page\\Roles"
