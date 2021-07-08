@@ -29,11 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: 
-          ${{fromJson(needs.job1.outputs.matrix).login}}
-          ${{fromJson(needs.job1.outputs.matrix).admin}}
-          ${{fromJson(needs.job1.outputs.matrix).create-course}}
-          ${{fromJson(needs.job1.outputs.matrix).landing-page}}
+        include: ${{fromJson(needs.job1.outputs.matrix).login}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
