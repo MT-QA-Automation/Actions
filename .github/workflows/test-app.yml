@@ -14,15 +14,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - id: set_matrix
-#       run: |
-#         content= cat test-path.json
-#         content="${content//'%'/'%25'}"
-#         content="${content//$'\n'/'%0A'}"
-#         content="${content//$'\r'/'%0D'}"
-#         echo "::set-output name=json::$content"
       run: |
-        JSON=$(cat test-path.json)
-        echo "::set-output name=json::${JSON//'%'/'%25'}"
+        content= cat test-path.json
+        content=${content//'%'/'%25'}
+        content=${content//$'\n'/'%0A'}
+        content=${content//$'\r'/'%0D'}
+        echo "::set-output name=json::$content"
     - run: |
         echo "${{fromJson(steps.set_matrix.outputs.json)}}"
     outputs: 
