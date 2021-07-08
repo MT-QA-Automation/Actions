@@ -14,17 +14,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - id: set_matrix
-#       run: |
-#         content= cat test-path.json
-#         content="${content//'%'/'%25'}"
-#         content="${content//$'\n'/'%0A'}"
-#         content="${content//$'\r'/'%0D'}"
-#         echo "::set-output name=json::$content"
-      run: echo "::set-output name=json::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+      run: |
+        content= cat test-path.json
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
+        echo "::set-output name=json::$content"
     - run: |
         echo "${{fromJson(steps.set_matrix.outputs.json)}}"
     outputs: 
-      matrix: ${{ steps.set-matrix.outputs.json }}
+      matrix: ${{ steps.set_matrix.outputs.json }}
   job1:
     needs: job0
     name: Academy
