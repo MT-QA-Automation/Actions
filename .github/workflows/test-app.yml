@@ -24,7 +24,7 @@ jobs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   job2:
     needs: job1
-    name: Run Academy Automation
+    name: Run RF Tests
     runs-on: windows-latest
     strategy:
       fail-fast: false
