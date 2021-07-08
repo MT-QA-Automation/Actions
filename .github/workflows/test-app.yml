@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
   
 jobs:
-  job0:
-    name: Output Json File
+  job1:
+    name: Output Test Path From Json
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -19,14 +19,11 @@ jobs:
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/'%0A'}"
         content="${content//$'\r'/'%0D'}"
-        echo "$content"
         echo "::set-output name=json::$content"
-    - run: |
-        echo "${{fromJson(steps.set_matrix.outputs.json)}}"
     outputs: 
       matrix: ${{ steps.set_matrix.outputs.json }}
-  job1:
-    needs: job0
+  job2:
+    needs: job1
     name: Academy
     runs-on: windows-latest
     strategy:
