@@ -28,7 +28,8 @@ jobs:
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix)}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
