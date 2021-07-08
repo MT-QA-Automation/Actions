@@ -24,12 +24,11 @@ jobs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   job2:
     needs: job1
-    name: Academy
+    name: Run Academy Automation
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
