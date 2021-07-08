@@ -20,19 +20,18 @@ jobs:
 #         content="${content//$'\n'/'%0A'}"
 #         content="${content//$'\r'/'%0D'}"
 #         echo "::set-output name=json::$content"
-      run: |
-        echo "::set-output name=json::$(cat test-path.json)"
+      run: echo "::set-output name=json::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
     - run: |
         echo "${{fromJson(steps.set_matrix.outputs.json)}}"
     outputs: 
-      json: ${{ steps.set-matrix.outputs.json }}
+      matrix: ${{ steps.set-matrix.outputs.json }}
   job1:
     needs: job0
     name: Academy
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.job0.outputs.json)}}
+      matrix: ${{fromJson(needs.job0.outputs.matrix)}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
