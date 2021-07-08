@@ -1,12 +1,6 @@
 {
-    "include": [
-        {
-            "name": "Login",
-            "test-suite": "Login"
-        },
-        {
-            "name": "Create Course - Catalog MT Fields",
-            "test-suite": "Lesson Plan - Create Course\\Catalog MT Fields"
-        }
-    ]
+    "name": "Login",
+    "test-suite": "Login",
+    "name": "Create Course - Catalog MT Fields",
+    "test-suite": "Lesson Plan - Create Course\\Catalog MT Fields"
 }
