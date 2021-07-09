@@ -74,8 +74,12 @@
             "test-suite": "Lesson Plan - Create Course\\Module Section Fields"
         },
         {
-            "name": "Prerequisite Course Section",
-            "test-suite": "Lesson Plan - Create Course\\Prerequisite Course Section"
+            "name": "Prerequisite Course Section 1",
+            "test-suite": "Lesson Plan - Create Course\\Prerequisite Course Section\Prerequisite_Course_Section_1.robot"
+        },
+        {
+            "name": "Prerequisite Course Section 2",
+            "test-suite": "Lesson Plan - Create Course\\Prerequisite Course Section\Prerequisite_Course_Section_2.robot"
         },
         {
             "name": "File Upload",
