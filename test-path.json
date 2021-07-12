@@ -83,7 +83,7 @@
         },
         {
             "name": "Prerequisite Course Section 3",
-            "test-suite": "Lesson Plan - Create Course\\Prerequisite Course Section\\Prerequisite_Course_Section_3robot"
+            "test-suite": "Lesson Plan - Create Course\\Prerequisite Course Section\\Prerequisite_Course_Section_3.robot"
         },
         {
             "name": "File Upload",
