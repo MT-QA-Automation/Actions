@@ -82,6 +82,10 @@
             "test-suite": "Lesson Plan - Create Course\\Prerequisite Course Section\\Prerequisite_Course_Section_2.robot"
         },
         {
+            "name": "Prerequisite Course Section 3",
+            "test-suite": "Lesson Plan - Create Course\\Prerequisite Course Section\\Prerequisite_Course_Section_3robot"
+        },
+        {
             "name": "File Upload",
             "test-suite": "Lesson Plan - Create Course\\File Upload"
         }
