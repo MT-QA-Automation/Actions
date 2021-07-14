@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
+      uses: actions/checkout@v2
       with:
         repository: MT-QA-Automation/Academy
         token: ${{ secrets.MT_RF_REPO_PAT }}    
