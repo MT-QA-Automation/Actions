@@ -38,7 +38,7 @@ jobs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   job2:
     needs: job1
-    name: Login
+    name: Automation
     runs-on: windows-latest
     strategy:
       fail-fast: false
