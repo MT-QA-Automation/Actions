@@ -43,7 +43,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
   job3:
-    needs: job2
+    needs: [job1, job2]
     name: Login
     runs-on: windows-latest
     strategy:
