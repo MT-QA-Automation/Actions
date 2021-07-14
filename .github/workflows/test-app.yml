@@ -61,7 +61,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: pabot --testlevelsplit --verbose --processes 5 -d Results -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: pabot --testlevelsplit --verbose --processes 4 -d Results -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
@@ -93,7 +93,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: pabot --testlevelsplit --verbose --processes 5 -d Results -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: pabot --testlevelsplit --verbose --processes 4 -d Results -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
@@ -125,7 +125,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: pabot --testlevelsplit --verbose --processes 5 -d Results -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: pabot --testlevelsplit --verbose --processes 4 -d Results -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
@@ -157,7 +157,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: pabot --testlevelsplit --verbose --processes 5 -d Results -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: pabot --testlevelsplit --verbose --processes 4 -d Results -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
