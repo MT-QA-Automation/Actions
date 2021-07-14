@@ -38,11 +38,108 @@ jobs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   job2:
     needs: job1
-    name: Automation
+    name: Login
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Robot-Framework-Test
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      uses: nanasess/setup-chromedriver@master    
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  job3:
+    needs: job1
+    name: Admin
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).admin}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Robot-Framework-Test
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      uses: nanasess/setup-chromedriver@master    
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  job4:
+    needs: job1
+    name: Create Course
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).create-course}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Robot-Framework-Test
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      uses: nanasess/setup-chromedriver@master    
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  job5:
+    needs: job1
+    name: Landing Page
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).landing-page}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
