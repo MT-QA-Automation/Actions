@@ -23,7 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Academy
+        token: ${{ secrets.MT_RF_REPO_PAT }}    
     - id: set_matrix
       run: |
         content="$(cat test-path.json)"
@@ -58,7 +60,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
+      run: robot -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
@@ -90,7 +92,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
+      run: robot -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
@@ -122,7 +124,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
+      run: robot -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
@@ -154,7 +156,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -d "Results" -r NONE -e Deferred "Academy\${{matrix.test-suite}}"
+      run: robot -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
