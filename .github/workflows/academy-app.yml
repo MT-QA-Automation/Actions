@@ -48,7 +48,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/Robot-Framework-Test
+        repository: MT-QA-Automation/Academy
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -80,7 +80,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/Robot-Framework-Test
+        repository: MT-QA-Automation/Academy
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -112,7 +112,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/Robot-Framework-Test
+        repository: MT-QA-Automation/Academy
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -144,7 +144,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/Robot-Framework-Test
+        repository: MT-QA-Automation/Academy
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
