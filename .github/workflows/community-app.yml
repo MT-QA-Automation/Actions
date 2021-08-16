@@ -41,8 +41,8 @@ jobs:
     name: DJuarbal
     runs-on: windows-latest
     env:
-      #Web_Driver: Chrome
-      Web_Driver: Firefox
+      #BROWSER: Chrome
+      BROWSER: Firefox
     strategy:
       fail-fast: false
       matrix: 
@@ -60,15 +60,15 @@ jobs:
     - name: Install Python Libraries
       run: pip install -r requirements.txt
     - name: Install Chromedriver
-      if: ${{ env.Web_Driver == 'Chrome' }}
+      if: ${{ env.BROWSER == 'Chrome' }}
       uses: nanasess/setup-chromedriver@master
     - name: Install Geckodriver
-      if: ${{ env.Web_Driver == 'Firefox' }}
+      if: ${{ env.BROWSER == 'Firefox' }}
       uses: browser-actions/setup-geckodriver@latest
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -T -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: robot -T -v "${{env.BROWSER}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
@@ -79,6 +79,9 @@ jobs:
 #     needs: job1
 #     name: DemoTest
 #     runs-on: windows-latest
+#     env:
+#       Web_Driver: Chrome
+#       #Web_Driver: Firefox
 #     strategy:
 #       fail-fast: false
 #       matrix: 
