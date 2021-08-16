@@ -21,9 +21,6 @@ jobs:
   job1:
     name: Output Test Path From Json
     runs-on: ubuntu-latest
-    env:
-      #Web_Driver: Chrome
-      Web_Driver: Firefox
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -43,6 +40,9 @@ jobs:
     needs: job1
     name: DJuarbal
     runs-on: windows-latest
+    env:
+      #Web_Driver: Chrome
+      Web_Driver: Firefox
     strategy:
       fail-fast: false
       matrix: 
