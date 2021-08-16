@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).djuarbal}}
+        include: ${{fromJson(needs.job1.outputs.matrix).d-juarbal}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -82,7 +82,7 @@ jobs:
 #     strategy:
 #       fail-fast: false
 #       matrix: 
-#         include: ${{fromJson(needs.job1.outputs.matrix).demotest}}
+#         include: ${{fromJson(needs.job1.outputs.matrix).demo-test}}
 #     steps:
 #     - name: Checkout code
 #       uses: actions/checkout@v2
