@@ -75,3 +75,42 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
+  job3:
+    needs: job1
+    name: My Dashboard
+    runs-on: windows-latest
+    env:
+      BROWSER: Chrome
+      #BROWSER: Firefox
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).my-dashboard}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -T -v "${{env.BROWSER}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
