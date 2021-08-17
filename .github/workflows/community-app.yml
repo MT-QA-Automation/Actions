@@ -4,17 +4,17 @@
 name: Community Automation 
 
 on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
-#   pull_request_review:
-#     types: 
-#       - submitted
-#   schedule:
-#     - cron: '0 4 * * MON-FRI'
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  pull_request_review:
+    types: 
+      - submitted
+  schedule:
+    - cron: '0 4 * * MON-FRI'
   workflow_dispatch:
   
 jobs:
