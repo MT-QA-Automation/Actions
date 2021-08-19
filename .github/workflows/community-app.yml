@@ -16,7 +16,13 @@ on:
 #   schedule:
 #     - cron: '0 4 * * MON-FRI'
   workflow_dispatch:
-  
+
+env:
+  BROWSER: Chrome
+  #BROWSER: Firefox
+  LINK_COMMUNITY: https://uat-community.musictribe.com/
+  #LINK_COMMUNITY: https://community.musictribe.com/
+
 jobs:
   job1:
     name: Output Test Path From Json
@@ -40,11 +46,11 @@ jobs:
     needs: job1
     name: DemoTest
     runs-on: windows-latest
-    env:
-      BROWSER: Chrome
-      #BROWSER: Firefox
-      LINK_COMMUNITY: https://uat-community.musictribe.com/
-      #LINK_COMMUNITY: https://community.musictribe.com/
+#     env:
+#       BROWSER: Chrome
+#       #BROWSER: Firefox
+#       LINK_COMMUNITY: https://uat-community.musictribe.com/
+#       #LINK_COMMUNITY: https://community.musictribe.com/
     strategy:
       fail-fast: false
       matrix: 
@@ -81,11 +87,11 @@ jobs:
     needs: job1
     name: Login
     runs-on: windows-latest
-    env:
-      #BROWSER: Chrome
-      BROWSER: Firefox
-      LINK_COMMUNITY: https://uat-community.musictribe.com/
-      #LINK_COMMUNITY: https://community.musictribe.com/
+#     env:
+#       #BROWSER: Chrome
+#       BROWSER: Firefox
+#       LINK_COMMUNITY: https://uat-community.musictribe.com/
+#       #LINK_COMMUNITY: https://community.musictribe.com/
     strategy:
       fail-fast: false
       matrix: 
