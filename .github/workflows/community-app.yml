@@ -44,6 +44,7 @@ jobs:
       #BROWSER: Chrome
       BROWSER: Firefox
       URL_COMMUNITY: https://uat-lms.musictribe.com/
+      #URL_COMMUNITY: https://uat-community.musictribe.com
     strategy:
       fail-fast: false
       matrix: 
