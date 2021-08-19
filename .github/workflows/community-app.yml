@@ -43,8 +43,8 @@ jobs:
     env:
       #BROWSER: Chrome
       BROWSER: Firefox
-      LINK_COMMUNITY: https://uat-community.musictribe.com
-      #LINK_COMMUNITY: https://community.musictribe.com
+      LINK_COMMUNITY: https://uat-community.musictribe.com/
+      #LINK_COMMUNITY: https://community.musictribe.com/
     strategy:
       fail-fast: false
       matrix: 
