@@ -43,6 +43,7 @@ jobs:
     env:
       #BROWSER: Chrome
       BROWSER: Firefox
+      URL_COMMUNITY: https://uat-lms.musictribe.com/
     strategy:
       fail-fast: false
       matrix: 
@@ -68,7 +69,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -T -v "${{env.BROWSER}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: robot -T -v "${{env.BROWSER}}" -v "${{env.URL_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
