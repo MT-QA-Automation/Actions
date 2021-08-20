@@ -16,7 +16,13 @@ on:
 #   schedule:
 #     - cron: '0 4 * * MON-FRI'
   workflow_dispatch:
-  
+
+env:
+  BROWSER: Chrome
+  #BROWSER: Firefox
+  LINK_C2C: https://uat.freemusictribe.com/
+  #LINK_C2C: https://freemusictribe.com/
+
 jobs:
   job1:
     name: Output Test Path From Json
@@ -40,9 +46,9 @@ jobs:
     needs: job1
     name: Login
     runs-on: windows-latest
-    env:
-      #BROWSER: Chrome
-      BROWSER: Firefox
+    # env:
+    #   #BROWSER: Chrome
+    #   BROWSER: Firefox
     strategy:
       fail-fast: false
       matrix: 
@@ -68,7 +74,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -T -v "${{env.BROWSER}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
@@ -79,9 +85,9 @@ jobs:
     needs: job1
     name: My Dashboard
     runs-on: windows-latest
-    env:
-      BROWSER: Chrome
-      #BROWSER: Firefox
+    # env:
+    #   BROWSER: Chrome
+    #   #BROWSER: Firefox
     strategy:
       fail-fast: false
       matrix: 
@@ -107,7 +113,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -T -v "${{env.BROWSER}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
