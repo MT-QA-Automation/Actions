@@ -46,9 +46,6 @@ jobs:
     needs: job1
     name: Login
     runs-on: windows-latest
-    # env:
-    #   #BROWSER: Chrome
-    #   BROWSER: Firefox
     strategy:
       fail-fast: false
       matrix: 
@@ -85,9 +82,6 @@ jobs:
     needs: job1
     name: My Dashboard
     runs-on: windows-latest
-    # env:
-    #   BROWSER: Chrome
-    #   #BROWSER: Firefox
     strategy:
       fail-fast: false
       matrix: 
