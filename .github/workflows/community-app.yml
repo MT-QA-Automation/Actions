@@ -42,7 +42,7 @@ jobs:
         echo "::set-output name=json::$content"
     outputs: 
       matrix: ${{ steps.set_matrix.outputs.json }}
-  set-up:
+  set-up-webdrivers:
     needs: test-path-json
     name: Setup WebDrivers
     runs-on: windows-latest
@@ -63,7 +63,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
   login:
-    needs: [test-path-json, set-up]
+    needs: [test-path-json, set-up-webdrivers]
     name: Login
     runs-on: windows-latest
     strategy:
@@ -91,7 +91,7 @@ jobs:
         name: ${{matrix.name}} Logs
         path: Results
   global-header:
-    needs: [test-path-json, set-up]
+    needs: [test-path-json, set-up-webdrivers]
     name: Global Header
     runs-on: windows-latest
     strategy:
@@ -119,7 +119,7 @@ jobs:
         name: ${{matrix.name}} Logs
         path: Results
   homepage:
-    needs: [test-path-json, set-up]
+    needs: [test-path-json, set-up-webdrivers]
     name: Homepage
     runs-on: windows-latest
     strategy:
