@@ -44,7 +44,7 @@ jobs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   set-up:
     needs: test-path-json
-    name: Set-up
+    name: Set-up Prerequisites
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -77,11 +77,11 @@ jobs:
       matrix: 
         include: ${{fromJson(needs.test-path-json.outputs.matrix).login}}
     steps:
-    # - name: Checkout code
-    #   uses: actions/checkout@v2
-    #   with:
-    #     repository: MT-QA-Automation/Community
-    #     token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Community
+        token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
