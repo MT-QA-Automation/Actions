@@ -42,36 +42,16 @@ jobs:
         echo "::set-output name=json::$content"
     outputs: 
       matrix: ${{ steps.set_matrix.outputs.json }}
-  set-up-webdrivers:
-    needs: test-path-json
-    name: Setup WebDrivers
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        repository: MT-QA-Automation/Community
-        token: ${{ secrets.MT_RF_REPO_PAT }}
-    - name: Install Chromedriver
-      if: ${{ env.BROWSER == 'Chrome' }}
-      uses: nanasess/setup-chromedriver@master
-    - name: Install Geckodriver
-      if: ${{ env.BROWSER == 'Firefox' }}
-      uses: browser-actions/setup-geckodriver@latest
-    - name: Adjust Resolution 
-      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
   login:
-    needs: [test-path-json, set-up-webdrivers]
+    needs: test-path-json
     name: Login
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).login}}
+        include: ${{fromJson(needs.job1.outputs.matrix).login}}
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v2
       with:
         repository: MT-QA-Automation/Community
@@ -82,6 +62,14 @@ jobs:
         python-version: 3.9
     - name: Install Python Libraries
       run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
@@ -91,15 +79,15 @@ jobs:
         name: ${{matrix.name}} Logs
         path: Results
   global-header:
-    needs: [test-path-json, set-up-webdrivers]
+    needs: test-path-json
     name: Global Header
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-header}}
+        include: ${{fromJson(needs.job1.outputs.matrix).global-header}}
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v2
       with:
         repository: MT-QA-Automation/Community
@@ -110,6 +98,14 @@ jobs:
         python-version: 3.9
     - name: Install Python Libraries
       run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
@@ -119,15 +115,15 @@ jobs:
         name: ${{matrix.name}} Logs
         path: Results
   homepage:
-    needs: [test-path-json, set-up-webdrivers]
+    needs: test-path-json
     name: Homepage
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).homepage}}
+        include: ${{fromJson(needs.job1.outputs.matrix).homepage}}
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v2
       with:
         repository: MT-QA-Automation/Community
@@ -138,6 +134,14 @@ jobs:
         python-version: 3.9
     - name: Install Python Libraries
       run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
@@ -146,133 +150,3 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-
-
-
-
-  # job1:
-  #   name: Output Test Path From Json
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v2
-  #     with:
-  #       repository: MT-QA-Automation/Community
-  #       token: ${{ secrets.MT_RF_REPO_PAT }}    
-  #   - id: set_matrix
-  #     run: |
-  #       content="$(cat test-path.json)"
-  #       content="${content//'%'/'%25'}"
-  #       content="${content//$'\n'/'%0A'}"
-  #       content="${content//$'\r'/'%0D'}"
-  #       echo "::set-output name=json::$content"
-  #   outputs: 
-  #     matrix: ${{ steps.set_matrix.outputs.json }}
-  # job2:
-  #   needs: job1
-  #   name: Login
-  #   runs-on: windows-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix: 
-  #       include: ${{fromJson(needs.job1.outputs.matrix).login}}
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v2
-  #     with:
-  #       repository: MT-QA-Automation/Community
-  #       token: ${{ secrets.MT_RF_REPO_PAT }}
-  #   - name: Setup Python 3.9
-  #     uses: actions/setup-python@v2
-  #     with:
-  #       python-version: 3.9
-  #   - name: Install Python Libraries
-  #     run: pip install -r requirements.txt
-  #   - name: Install Chromedriver
-  #     if: ${{ env.BROWSER == 'Chrome' }}
-  #     uses: nanasess/setup-chromedriver@master
-  #   - name: Install Geckodriver
-  #     if: ${{ env.BROWSER == 'Firefox' }}
-  #     uses: browser-actions/setup-geckodriver@latest
-  #   - name: Adjust Resolution 
-  #     run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
-  #   - name: Run Robot Tests 
-  #     run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
-  #   - name: Upload Artifacts
-  #     if: always()
-  #     uses: actions/upload-artifact@v2
-  #     with:
-  #       name: ${{matrix.name}} Logs
-  #       path: Results
-  # job3:
-  #   needs: job1
-  #   name: Global Header
-  #   runs-on: windows-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix: 
-  #       include: ${{fromJson(needs.job1.outputs.matrix).global-header}}
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v2
-  #     with:
-  #       repository: MT-QA-Automation/Community
-  #       token: ${{ secrets.MT_RF_REPO_PAT }}
-  #   - name: Setup Python 3.9
-  #     uses: actions/setup-python@v2
-  #     with:
-  #       python-version: 3.9
-  #   - name: Install Python Libraries
-  #     run: pip install -r requirements.txt
-  #   - name: Install Chromedriver
-  #     if: ${{ env.BROWSER == 'Chrome' }}
-  #     uses: nanasess/setup-chromedriver@master
-  #   - name: Install Geckodriver
-  #     if: ${{ env.BROWSER == 'Firefox' }}
-  #     uses: browser-actions/setup-geckodriver@latest
-  #   - name: Adjust Resolution 
-  #     run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
-  #   - name: Run Robot Tests 
-  #     run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
-  #   - name: Upload Artifacts
-  #     if: always()
-  #     uses: actions/upload-artifact@v2
-  #     with:
-  #       name: ${{matrix.name}} Logs
-  #       path: Results
-  # job4:
-  #   needs: job1
-  #   name: Homepage
-  #   runs-on: windows-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix: 
-  #       include: ${{fromJson(needs.job1.outputs.matrix).homepage}}
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v2
-  #     with:
-  #       repository: MT-QA-Automation/Community
-  #       token: ${{ secrets.MT_RF_REPO_PAT }}
-  #   - name: Setup Python 3.9
-  #     uses: actions/setup-python@v2
-  #     with:
-  #       python-version: 3.9
-  #   - name: Install Python Libraries
-  #     run: pip install -r requirements.txt
-  #   - name: Install Chromedriver
-  #     if: ${{ env.BROWSER == 'Chrome' }}
-  #     uses: nanasess/setup-chromedriver@master
-  #   - name: Install Geckodriver
-  #     if: ${{ env.BROWSER == 'Firefox' }}
-  #     uses: browser-actions/setup-geckodriver@latest
-  #   - name: Adjust Resolution 
-  #     run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
-  #   - name: Run Robot Tests 
-  #     run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
-  #   - name: Upload Artifacts
-  #     if: always()
-  #     uses: actions/upload-artifact@v2
-  #     with:
-  #       name: ${{matrix.name}} Logs
-  #       path: Results
