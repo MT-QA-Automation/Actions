@@ -49,7 +49,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).login}}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).login}}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
@@ -85,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).global-header}}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-header}}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
@@ -121,7 +121,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).homepage}}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).homepage}}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
