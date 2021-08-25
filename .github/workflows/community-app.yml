@@ -54,12 +54,12 @@ jobs:
       with:
         repository: MT-QA-Automation/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
-    - name: Setup Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install Python Libraries
-      run: pip install -r requirements.txt
+#     - name: Setup Python 3.9
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.9
+#     - name: Install Python Libraries
+#       run: pip install -r requirements.txt
     - name: Install Chromedriver
       if: ${{ env.BROWSER == 'Chrome' }}
       uses: nanasess/setup-chromedriver@master
@@ -82,6 +82,12 @@ jobs:
     #   with:
     #     repository: MT-QA-Automation/Community
     #     token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
     - name: Run Robot Tests 
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
