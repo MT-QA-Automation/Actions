@@ -44,12 +44,10 @@ jobs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   set-up:
     needs: test-path-json
-    name: Login
+    name: Set-up
     runs-on: windows-latest
     strategy:
       fail-fast: false
-      matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).login}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
