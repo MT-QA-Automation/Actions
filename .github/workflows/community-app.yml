@@ -75,7 +75,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).login}}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).login}}
     steps:
     # - name: Checkout code
     #   uses: actions/checkout@v2
