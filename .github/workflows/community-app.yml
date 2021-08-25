@@ -44,7 +44,7 @@ jobs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   set-up:
     needs: test-path-json
-    name: Set-up Prerequisites
+    name: Setup WebDrivers
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -54,12 +54,6 @@ jobs:
       with:
         repository: MT-QA-Automation/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
-#     - name: Setup Python 3.9
-#       uses: actions/setup-python@v2
-#       with:
-#         python-version: 3.9
-#     - name: Install Python Libraries
-#       run: pip install -r requirements.txt
     - name: Install Chromedriver
       if: ${{ env.BROWSER == 'Chrome' }}
       uses: nanasess/setup-chromedriver@master
@@ -76,6 +70,62 @@ jobs:
       fail-fast: false
       matrix: 
         include: ${{fromJson(needs.test-path-json.outputs.matrix).login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Community
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Run Robot Tests 
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  global-header:
+    needs: [test-path-json, set-up]
+    name: Global Header
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-header}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation/Community
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Run Robot Tests 
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  homepage:
+    needs: [test-path-json, set-up]
+    name: Homepage
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).homepage}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
