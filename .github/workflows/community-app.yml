@@ -7,12 +7,12 @@ on:
 #   push:
 #     branches:
 #       - main
-#   pull_request:
-#     branches:
-#       - main
-  pull_request_review:
-    types: 
-      - submitted
+  pull_request:
+    branches:
+      - main
+#   pull_request_review:
+#     types: 
+#       - submitted
 #   schedule:
 #     - cron: '0 4 * * MON-FRI'
 #   workflow_dispatch:
