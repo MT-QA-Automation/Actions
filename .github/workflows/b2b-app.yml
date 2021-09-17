@@ -49,7 +49,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).login}}
+        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -71,7 +71,7 @@ jobs:
     - name: Adjust Resolution 
       run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests 
-      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_B2B:${{env.LINK_B2B}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
       uses: actions/upload-artifact@v2
