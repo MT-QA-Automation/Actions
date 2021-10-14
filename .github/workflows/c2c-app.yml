@@ -31,7 +31,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/C2C
+        repository: MT-QA-C2C-Automation/C2C
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - id: set_matrix
       run: |
@@ -54,7 +54,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/C2C
+        repository: MT-QA-C2C-Automation/C2C
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -90,7 +90,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/C2C
+        repository: MT-QA-C2C-Automation/C2C
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -126,7 +126,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/C2C
+        repository: MT-QA-C2C-Automation/C2C
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -162,7 +162,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/C2C
+        repository: MT-QA-C2C-Automation/C2C
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -198,7 +198,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/C2C
+        repository: MT-QA-C2C-Automation/C2C
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -234,7 +234,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/C2C
+        repository: MT-QA-C2C-Automation/C2C
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
