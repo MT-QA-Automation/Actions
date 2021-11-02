@@ -44,6 +44,42 @@ jobs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   job2:
     needs: job1
+    name: Registration
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation-B2B/B2B
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_B2B:${{env.LINK_B2B}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results  
+  job3:
+    needs: job1
     name: Login
     runs-on: windows-latest
     strategy:
@@ -77,4 +113,187 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{matrix.name}} Logs
+        path: Results    
+  job4:
+    needs: job1
+    name: Forgot Music Tribe Password
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation-B2B/B2B
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_B2B:${{env.LINK_B2B}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
         path: Results
+  job5:
+    needs: job1
+    name: Forgot Music Tribe ID
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation-B2B/B2B
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_B2B:${{env.LINK_B2B}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  
+  job6:
+    needs: job1
+    name: Homepage
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation-B2B/B2B
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_B2B:${{env.LINK_B2B}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+        
+  job7:
+    needs: job1
+    name: Account Settings
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation-B2B/B2B
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_B2B:${{env.LINK_B2B}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  job8:
+    needs: job1
+    name: Footer
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Automation-B2B/B2B
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution 
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests 
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_B2B:${{env.LINK_B2B}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+
