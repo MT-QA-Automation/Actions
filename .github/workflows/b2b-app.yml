@@ -49,7 +49,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+        include: ${{fromJson(needs.job1.outputs.matrix).Registration}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -116,12 +116,12 @@ jobs:
         path: Results    
   job4:
     needs: job1
-    name: Forgot Music Tribe Password
+    name: Forgot_MT-Password
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+        include: ${{fromJson(needs.job1.outputs.matrix).Forgot_MT-Password}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -152,12 +152,12 @@ jobs:
         path: Results
   job5:
     needs: job1
-    name: Forgot Music Tribe ID
+    name: Forgot_MT-ID
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+        include: ${{fromJson(needs.job1.outputs.matrix).Forgot_MT-ID}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -194,7 +194,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+        include: ${{fromJson(needs.job1.outputs.matrix).Homepage}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -226,12 +226,12 @@ jobs:
         
   job7:
     needs: job1
-    name: Account Settings
+    name: Account_Settings
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+        include: ${{fromJson(needs.job1.outputs.matrix).Account_Settings}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -267,7 +267,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.job1.outputs.matrix).Login}}
+        include: ${{fromJson(needs.job1.outputs.matrix).Footer}}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
