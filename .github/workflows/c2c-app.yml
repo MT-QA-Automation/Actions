@@ -308,7 +308,7 @@ jobs:
   My-Dashboard:
     if: ${{ always() }}
     needs: [test-path-json, Side-Menu]
-    name: My-Dashboard
+    name: My Dashboard
     runs-on: windows-latest
     strategy:
       fail-fast: false
