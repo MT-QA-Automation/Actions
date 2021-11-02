@@ -20,7 +20,7 @@ on:
 env:
   BROWSER: Chrome
   #BROWSER: Firefox
-  LINK_B2B: https://prod-b2b.musictribe.com/
+  LINK_B2B: https://store.musictribe.com/
 
 
 jobs:
