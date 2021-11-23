@@ -34,7 +34,7 @@ jobs:
         repository: MT-QA-C2C-Automation/C2C
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Set Timezone to +8 (With input)
-      uses: ./set-timezone@v1.0
+      uses: szenius/set-timezone@v1.0
       with:
         timezoneLinux: "Singapore Standard Time"
     - id: set_matrix
