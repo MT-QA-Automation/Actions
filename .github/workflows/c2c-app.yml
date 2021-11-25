@@ -1,0 +1,379 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: C2C Automation
+
+on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+#   pull_request_review:
+#     types:
+#       - submitted
+#   schedule:
+#     - cron: '0 4 * * MON-FRI'
+  workflow_dispatch:
+
+env:
+  BROWSER: Chrome
+  #BROWSER: Firefox
+  LINK_C2C: https://uat.freemusictribe.com/
+  #LINK_C2C: https://freemusictribe.com/
+
+jobs:
+  test-path-json:
+    name: Output Test Path From Json
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - id: set_matrix
+      run: |
+        content="$(cat test-path.json)"
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
+        echo "::set-output name=json::$content"
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.json }}
+  Sign-Up:
+    needs: test-path-json
+    name: Sign Up
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).sign-up}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Login:
+    needs: test-path-json
+    name: Login
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).login}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Forgot-Password:
+    needs: test-path-json
+    name: Forgot Password
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).forgot-password}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Global-Header:
+    needs: test-path-json
+    name: Global Header
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-header}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Homepage:
+    needs: test-path-json
+    name: Homepage
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).homepage}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Account-Settings:
+    needs: test-path-json
+    name: Account Settings
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).account-settings}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        github_token: ${{ secrets.MT_RF_REPO_PAT }}
+        branch: ${{ github.ref }}
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Side-Menu:
+    needs: test-path-json
+    name: Side Menu
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).side-menu}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Message-Page:
+    needs: test-path-json
+    name: Message Page
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).message-page}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-C2C-Automation/C2C
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Set Timezone to +8 (With input)
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Singapore Standard Time"
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_C2C:${{env.LINK_C2C}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
