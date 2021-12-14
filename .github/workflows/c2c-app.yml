@@ -36,7 +36,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - id: set_matrix
       run: |
         content="$(cat test-path.json)"
@@ -63,7 +65,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -103,7 +107,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -143,7 +149,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -183,7 +191,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -223,7 +233,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -263,7 +275,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -314,7 +328,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -354,7 +370,9 @@ jobs:
     - name: Set Timezone to +8 (With input)
       uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Singapore"
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
       with:
