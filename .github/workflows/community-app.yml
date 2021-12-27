@@ -20,7 +20,7 @@ on:
 env:
   BROWSER: Chrome
   #BROWSER: Firefox
-  LINK_COMMUNITY: https://uat-community.musictribe.com/
+  LINK_COMMUNITY: https://uat-communityrevamp.musictribe.com/
   #LINK_COMMUNITY: https://community.musictribe.com/
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/Community
+        repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}    
     - id: set_matrix
       run: |
@@ -42,9 +42,9 @@ jobs:
         echo "::set-output name=json::$content"
     outputs: 
       matrix: ${{ steps.set_matrix.outputs.json }}
-  login:
+  Brand-Tribes:
     needs: test-path-json
-    name: Login
+    name: Brand Tribes
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -54,7 +54,7 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/Community
+        repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
@@ -78,9 +78,9 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-  global-header:
+  Create-Account:
     needs: test-path-json
-    name: Global Header
+    name: Create Account
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -90,79 +90,7 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2
       with:
-        repository: MT-QA-Automation/Community
-        token: ${{ secrets.MT_RF_REPO_PAT }}
-    - name: Setup Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install Python Libraries
-      run: pip install -r requirements.txt
-    - name: Install Chromedriver
-      if: ${{ env.BROWSER == 'Chrome' }}
-      uses: nanasess/setup-chromedriver@master
-    - name: Install Geckodriver
-      if: ${{ env.BROWSER == 'Firefox' }}
-      uses: browser-actions/setup-geckodriver@latest
-    - name: Adjust Display Resolution 
-      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
-    - name: Run Robot Tests 
-      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
-    - name: Upload Artifacts
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{matrix.name}} Logs
-        path: Results
-  global-footer:
-    needs: test-path-json
-    name: Global Footer
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix: 
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-footer}}
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
-      with:
-        repository: MT-QA-Automation/Community
-        token: ${{ secrets.MT_RF_REPO_PAT }}
-    - name: Setup Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install Python Libraries
-      run: pip install -r requirements.txt
-    - name: Install Chromedriver
-      if: ${{ env.BROWSER == 'Chrome' }}
-      uses: nanasess/setup-chromedriver@master
-    - name: Install Geckodriver
-      if: ${{ env.BROWSER == 'Firefox' }}
-      uses: browser-actions/setup-geckodriver@latest
-    - name: Adjust Display Resolution 
-      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
-    - name: Run Robot Tests 
-      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
-    - name: Upload Artifacts
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{matrix.name}} Logs
-        path: Results
-  homepage:
-    needs: test-path-json
-    name: Homepage
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix: 
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).homepage}}
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
-      with:
-        repository: MT-QA-Automation/Community
+        repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
       uses: actions/setup-python@v2
