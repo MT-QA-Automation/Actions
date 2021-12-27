@@ -85,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).create-account}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).create-account}}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
