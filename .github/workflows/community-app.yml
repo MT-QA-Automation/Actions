@@ -42,7 +42,7 @@ jobs:
         echo "::set-output name=json::$content"
     outputs: 
       matrix: ${{ steps.set_matrix.outputs.json }}
-  Brand-Tribes:
+  brand-tribes:
     needs: test-path-json
     name: Brand Tribes
     runs-on: windows-latest
@@ -78,7 +78,7 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-  Create-Account:
+  create-account:
     needs: test-path-json
     name: Create Account
     runs-on: windows-latest
