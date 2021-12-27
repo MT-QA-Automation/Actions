@@ -42,14 +42,14 @@ jobs:
         echo "::set-output name=json::$content"
     outputs: 
       matrix: ${{ steps.set_matrix.outputs.json }}
-  brand-tribes:
+  Brand-Tribes:
     needs: test-path-json
     name: Brand Tribes
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).login}}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).brand-tribes}}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
@@ -78,14 +78,14 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-  create-account:
+  Create-Account:
     needs: test-path-json
     name: Create Account
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix: 
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-header}}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).create-account}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
