@@ -26,10 +26,7 @@ env:
 jobs:
   test-path-json:
     name: Output Test Path From Json
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
