@@ -114,7 +114,7 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-Global-Footer:
+  Global-Footer:
     needs: test-path-json
     name: Global Footer
     runs-on: windows-latest
@@ -150,7 +150,7 @@ Global-Footer:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-Global-Header:
+  Global-Header:
     needs: test-path-json
     name: Global Header
     runs-on: windows-latest
@@ -186,7 +186,7 @@ Global-Header:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-Login:
+  Login:
     needs: test-path-json
     name: Login
     runs-on: windows-latest
