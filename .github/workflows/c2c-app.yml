@@ -4,15 +4,15 @@
 name: C2C Automation
 
 on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
-#   pull_request_review:
-#     types:
-#       - submitted
+  push:
+    branches:
+      - mldelacerna
+  pull_request:
+    branches:
+      - mldelacerna
+  pull_request_review:
+    types:
+      - submitted
 #   schedule:
 #     - cron: '0 4 * * MON-FRI'
   workflow_dispatch:
