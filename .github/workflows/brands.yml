@@ -1,0 +1,78 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Brands Automation
+
+on:
+#   push:
+#     branches:
+#       - main
+  # pull_request:
+  #   branches:
+  #     - main
+#   pull_request_review:
+#     types:
+#       - submitted
+#   schedule:
+#     - cron: '0 4 * * MON-FRI'
+  workflow_dispatch:
+
+env:
+  BROWSER: Chrome
+  #BROWSER: Firefox
+
+jobs:
+  test-path-json:
+    name: Output Test Path From Json
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Brands-Automation/Brands
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - id: set_matrix
+      run: |
+        content="$(cat test-path.json)"
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
+        echo "::set-output name=json::$content"
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.json }}/
+  MDM_Integration:
+    needs: test-path-json
+    name: MDM Integration
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).MDM_Integration}}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+      with:
+        repository: MT-QA-Brands-Automation/Brands
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -d "Results" -r NONE -e Deferred -i Regression "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
