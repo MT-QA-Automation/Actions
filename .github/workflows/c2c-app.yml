@@ -497,7 +497,7 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-Product-Details-Page:
+  Product-Details-Page:
     needs: test-path-json
     name: Product Details Page
     runs-on: windows-latest
