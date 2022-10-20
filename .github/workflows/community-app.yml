@@ -29,17 +29,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - id: set_matrix
       run: |
         content="$(cat test-path.json)"
-        content="${content//'%'/'%25'}"
-        content="${content//$'\n'/'%0A'}"
-        content="${content//$'\r'/'%0D'}"
-        echo "::set-output name=json::$content"
+        content="${content//'%'/' '}"
+        content="${content//$'\n'/' '}"
+        content="${content//$'\r'/' '}"
+        echo "json=$content" >> $GITHUB_OUTPUT
     outputs:
       matrix: ${{ steps.set_matrix.outputs.json }}
   Brand-Tribes:
@@ -52,12 +52,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).brand-tribes}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -74,7 +74,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -88,12 +88,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).create-account}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -110,7 +110,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -124,12 +124,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).discussion-page}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -146,7 +146,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -160,12 +160,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).global-footer}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -182,7 +182,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -196,12 +196,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).global-header}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -218,7 +218,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -232,12 +232,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).homepage}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -254,7 +254,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -268,12 +268,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).login}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -290,7 +290,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -304,12 +304,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).news-creation}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -326,7 +326,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -340,12 +340,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).about-us}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -362,7 +362,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -376,12 +376,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).support-us}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -398,7 +398,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -412,12 +412,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).product-tribes}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -434,7 +434,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -448,12 +448,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).solution-tribes}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -470,7 +470,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -484,12 +484,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).learn}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -506,7 +506,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
@@ -520,12 +520,12 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).tribes-for-you}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: MT-QA-Automation-Community/Community
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install Python Libraries
@@ -542,7 +542,7 @@ jobs:
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
     - name: Upload Artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{matrix.name}} Logs
         path: Results
