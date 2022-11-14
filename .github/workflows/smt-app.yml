@@ -1,0 +1,117 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: SMT Automation
+
+on:
+#   push:
+#     branches:
+#       - main
+  # pull_request:
+  #   branches:
+  #     - main
+#   pull_request_review:
+#     types:
+#       - submitted
+#   schedule:
+#     - cron: '0 4 * * MON-FRI'
+  workflow_dispatch:
+
+env:
+  BROWSER: Chrome
+  #BROWSER: Firefox
+  LINK_SMT: https://uat-solutions.musictribe.com/
+  #LINK_SMT: https://solutions.musictribe.com/
+
+jobs:
+  test-path-json:
+    name: Output Test Path From Json
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        repository: MT-QA-Automation-SMT/SMT
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - id: set_matrix
+      run: |
+        content="$(cat test-path.json)"
+        content="${content//'%'/' '}"
+        content="${content//$'\n'/' '}"
+        content="${content//$'\r'/' '}"
+        echo "json=$content" >> $GITHUB_OUTPUT
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.json }}
+  Global-Header:
+    needs: test-path-json
+    name: Global Header
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-header}}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        repository: MT-QA-Automation-SMT/SMT
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_SMT:${{env.LINK_SMT}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Global-Footer:
+    needs: test-path-json
+    name: Global Footer
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-footer}}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        repository: MT-QA-Automation-SMT/SMT
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_SMT:${{env.LINK_SMT}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  
