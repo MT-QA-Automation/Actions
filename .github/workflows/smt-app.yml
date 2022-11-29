@@ -116,7 +116,7 @@ jobs:
         path: Results
   Solutions:
     needs: test-path-json
-    name: Global Footer
+    name: Solutions
     runs-on: windows-latest
     strategy:
       fail-fast: false
