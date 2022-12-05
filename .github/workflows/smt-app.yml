@@ -186,7 +186,7 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
- Homepage:
+  Homepage:
     needs: test-path-json
     name: Homepage
     runs-on: windows-latest
@@ -222,7 +222,7 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-Products:
+  Products:
     needs: test-path-json
     name: Products Modal
     runs-on: windows-latest
