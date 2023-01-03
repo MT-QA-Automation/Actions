@@ -260,7 +260,7 @@ jobs:
         path: Results
   Bento:
     needs: test-path-json
-    name: Bento
+    name: Bento Boxes
     runs-on: windows-latest
     strategy:
       fail-fast: false
