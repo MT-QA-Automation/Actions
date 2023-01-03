@@ -258,7 +258,7 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-Bento:
+  Bento:
     needs: test-path-json
     name: Bento
     runs-on: windows-latest
