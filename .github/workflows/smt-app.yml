@@ -20,8 +20,8 @@ on:
 env:
   BROWSER: Chrome
   #BROWSER: Firefox
-  LINK_SMT: https://uat-solutions.musictribe.com/
-  #LINK_SMT: https://solutions.musictribe.com/
+  # LINK_SMT: https://uat-solutions.musictribe.com/
+  LINK_SMT: https://solutions.musictribe.com/
 
 jobs:
   test-path-json:
