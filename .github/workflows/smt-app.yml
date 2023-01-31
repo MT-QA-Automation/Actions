@@ -330,7 +330,7 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-  Global Search:
+  Global-Search:
     needs: test-path-json
     name: Global Search
     runs-on: windows-latest
