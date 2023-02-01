@@ -13,8 +13,12 @@ on:
 #   schedule:
 #     - cron: '0 4 * * MON-FRI'
   workflow_dispatch:
-  
-  jobs:
+
+env:
+  BROWSER: Chrome
+  PROJECT_LINK: https://spareparts.musictribe.com
+
+jobs:
   test-path-json:
     name: Output Test Path From Json
     runs-on: ubuntu-latest
@@ -34,7 +38,7 @@ on:
     outputs:
       matrix: ${{ steps.set_matrix.outputs.json }}
 
-Login:
+  Login:
     needs: test-path-json
     name: Login
     runs-on: windows-latest
