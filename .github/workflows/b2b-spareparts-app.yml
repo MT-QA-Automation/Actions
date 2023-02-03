@@ -113,14 +113,14 @@ jobs:
         name: ${{matrix.name}} Logs
         path: Results
 
-  Global_Header:
+  Global-Header:
     needs: test-path-json
     name: Global Header
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).global_header}}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).global-header}}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
