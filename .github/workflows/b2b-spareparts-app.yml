@@ -188,7 +188,7 @@ jobs:
         path: Results
 
   Global-Header-Cart:
-    needs: [test-path-json,Shopping-Cart]
+    needs: [test-path-json,Shopping-Cart,Homepage-Cart]
     name: Global Header-Cart
     runs-on: windows-latest
     strategy:
