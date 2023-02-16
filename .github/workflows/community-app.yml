@@ -20,7 +20,7 @@ on:
 env:
   BROWSER: Chrome
   #BROWSER: Firefox
-  LINK_COMMUNITY: https://uat-communityrevamp.musictribe.com/
+  LINK_COMMUNITY: https://dev-community.musictribe.com/
   #LINK_COMMUNITY: https://community.musictribe.com/
 
 jobs:
@@ -438,42 +438,43 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-  Solution-Tribes:
-    needs: test-path-json
-    name: Solution Tribes
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).solution-tribes}}
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-      with:
-        repository: MT-QA-Automation-Community/Community
-        token: ${{ secrets.MT_RF_REPO_PAT }}
-    - name: Setup Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Install Python Libraries
-      run: pip install -r requirements.txt
-    - name: Install Chromedriver
-      if: ${{ env.BROWSER == 'Chrome' }}
-      uses: nanasess/setup-chromedriver@master
-    - name: Install Geckodriver
-      if: ${{ env.BROWSER == 'Firefox' }}
-      uses: browser-actions/setup-geckodriver@latest
-    - name: Adjust Display Resolution
-      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
-    - name: Run Robot Tests
-      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
-    - name: Upload Artifacts
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{matrix.name}} Logs
-        path: Results
+# Commented Solutions since it is hidden for now
+#  Solution-Tribes:
+#    needs: test-path-json
+#    name: Solution Tribes
+#    runs-on: windows-latest
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        include: ${{fromJson(needs.test-path-json.outputs.matrix).solution-tribes}}
+#    steps:
+#    - name: Checkout Code
+#      uses: actions/checkout@v3
+#      with:
+#        repository: MT-QA-Automation-Community/Community
+#        token: ${{ secrets.MT_RF_REPO_PAT }}
+#    - name: Setup Python 3.9
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: 3.9
+#    - name: Install Python Libraries
+#      run: pip install -r requirements.txt
+#    - name: Install Chromedriver
+#      if: ${{ env.BROWSER == 'Chrome' }}
+#      uses: nanasess/setup-chromedriver@master
+#    - name: Install Geckodriver
+#      if: ${{ env.BROWSER == 'Firefox' }}
+#      uses: browser-actions/setup-geckodriver@latest
+#    - name: Adjust Display Resolution
+#      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+#    - name: Run Robot Tests
+#      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+#    - name: Upload Artifacts
+#      if: always()
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: ${{matrix.name}} Logs
+#        path: Results
   Learn:
     needs: test-path-json
     name: Learn
@@ -518,6 +519,78 @@ jobs:
       fail-fast: false
       matrix:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).tribes-for-you}}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        repository: MT-QA-Automation-Community/Community
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Site-Information:
+    needs: test-path-json
+    name: Site Information
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).site-information}}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        repository: MT-QA-Automation-Community/Community
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: robot -T -v "BROWSER:${{env.BROWSER}}" -v "LINK_COMMUNITY:${{env.LINK_COMMUNITY}}" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+  Admin-Dashboard:
+    needs: test-path-json
+    name: Admin Dashboard
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).admin-dashboard}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
