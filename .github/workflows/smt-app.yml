@@ -13,8 +13,8 @@ on:
 #   pull_request_review:
 #     types:
 #       - submitted
-#   schedule:
-#     - cron: '0 4 * * MON-FRI'
+  schedule:
+    - cron: '0 2 * * MON-FRI'
   workflow_dispatch:
 
 env:
