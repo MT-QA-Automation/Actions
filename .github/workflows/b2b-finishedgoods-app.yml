@@ -1,0 +1,114 @@
+
+name: B2B Finished Goods Automation
+
+on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+#   pull_request_review:
+#     types:
+#       - submitted
+#   schedule:
+#     - cron: '0 4 * * MON-FRI'
+  workflow_dispatch:
+
+env:
+  BROWSER: Chrome
+  PROJECT_LINK: https://uat-b2b.musictribe.com
+
+jobs:
+  test-path-json:
+    name: Output Test Path From Json
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        repository: MT-QA-Automation-B2BFinishedGoods/B2BFinishedGoods
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - id: set_matrix
+      run: |
+        content="$(cat test-path.json)"
+        content="${content//'%'/' '}"
+        content="${content//$'\n'/' '}"
+        content="${content//$'\r'/' '}"
+        echo "json=$content" >> $GITHUB_OUTPUT
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.json }}
+
+  Stocks-Data-Validation:
+    needs: test-path-json
+    name: Stocks Data Validation (PROD)
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).stocks-data-validation}}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        repository: MT-QA-Automation-B2BFinishedGoods/B2BFinishedGoods
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: pabot --pabotlib --testlevelsplit -v "BROWSER:headlessChrome" -v "PROJECT_LINK:https://store.musictribe.com" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
+
+  Batch-Stocks-Data-Validation:
+    needs: test-path-json
+    name: Stocks Data Validation (Batch)
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).stocks-data-validation-batch}}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        repository: MT-QA-Automation-B2BFinishedGoods/B2BFinishedGoods
+        token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Setup Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+    - name: Install Chromedriver
+      if: ${{ env.BROWSER == 'Chrome' }}
+      uses: nanasess/setup-chromedriver@master
+    - name: Install Geckodriver
+      if: ${{ env.BROWSER == 'Firefox' }}
+      uses: browser-actions/setup-geckodriver@latest
+    - name: Adjust Display Resolution
+      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    - name: Run Robot Tests
+      run: pabot --pabotlib --testlevelsplit -v "BROWSER:headlessChrome" -v "PROJECT_LINK:https://store.musictribe.com" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{matrix.name}} Logs
+        path: Results
