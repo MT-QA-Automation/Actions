@@ -590,7 +590,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).admin-dashboard}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).admin-dashboard}}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
