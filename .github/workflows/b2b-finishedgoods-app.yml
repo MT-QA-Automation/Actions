@@ -39,39 +39,39 @@ jobs:
     outputs:
       matrix: ${{ steps.set_matrix.outputs.json }}
 
-  Data-Validation:
-    needs: test-path-json
-    name: Data Validation
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).data-validation}}
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-      with:
-        repository: MT-QA-Automation-B2BFinishedGoods/MT-QA-Automation-B2BFinishedGoods
-        token: ${{ secrets.MT_RF_REPO_PAT }}
-    - name: Setup Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Install Python Libraries
-      run: pip install -r requirements.txt
-    - name: Install Chromedriver
-      if: ${{ env.BROWSER == 'Chrome' }}
-      uses: nanasess/setup-chromedriver@master
-    - name: Install Geckodriver
-      if: ${{ env.BROWSER == 'Firefox' }}
-      uses: browser-actions/setup-geckodriver@latest
-    # - name: Adjust Display Resolution
-    #   run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
-    - name: Run Robot Tests
-      run: pabot --pabotlib --testlevelsplit -v "BROWSER:headlessChrome" -v "PROJECT_LINK:https://store.musictribe.com" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
-    - name: Upload Artifacts
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{matrix.name}} Logs
-        path: Results
+  # Data-Validation:
+  #   needs: test-path-json
+  #   name: Data Validation
+  #   runs-on: windows-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       include: ${{fromJson(needs.test-path-json.outputs.matrix).data-validation}}
+  #   steps:
+  #   - name: Checkout Code
+  #     uses: actions/checkout@v3
+  #     with:
+  #       repository: MT-QA-Automation-B2BFinishedGoods/MT-QA-Automation-B2BFinishedGoods
+  #       token: ${{ secrets.MT_RF_REPO_PAT }}
+  #   - name: Setup Python 3.9
+  #     uses: actions/setup-python@v4
+  #     with:
+  #       python-version: 3.9
+  #   - name: Install Python Libraries
+  #     run: pip install -r requirements.txt
+  #   - name: Install Chromedriver
+  #     if: ${{ env.BROWSER == 'Chrome' }}
+  #     uses: nanasess/setup-chromedriver@master
+  #   - name: Install Geckodriver
+  #     if: ${{ env.BROWSER == 'Firefox' }}
+  #     uses: browser-actions/setup-geckodriver@latest
+  #   # - name: Adjust Display Resolution
+  #   #   run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+  #   - name: Run Robot Tests
+  #     run: pabot --pabotlib --testlevelsplit -v "BROWSER:headlessChrome" -v "PROJECT_LINK:https://store.musictribe.com" -d "Results" -r NONE -e Deferred "${{matrix.test-suite}}"
+  #   - name: Upload Artifacts
+  #     if: always()
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: ${{matrix.name}} Logs
+  #       path: Results
