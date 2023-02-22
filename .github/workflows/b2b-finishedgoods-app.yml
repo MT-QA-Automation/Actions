@@ -41,7 +41,7 @@ jobs:
 
   Stocks-Data-Validation:
     needs: test-path-json
-    name: Stocks Data Validation (Batch)
+    name: Stocks Data Validation
     runs-on: windows-latest
     strategy:
       fail-fast: false
