@@ -39,14 +39,14 @@ jobs:
     outputs:
       matrix: ${{ steps.set_matrix.outputs.json }}
 
-  Stocks-Data-Validation:
+  Data-Validation:
     needs: test-path-json
-    name: Stocks Data Validation
+    name: Data Validation
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
-        include: ${{fromJson(needs.test-path-json.outputs.matrix).stocks-data-validation}}
+        include: ${{fromJson(needs.test-path-json.outputs.matrix).data-validation}}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
