@@ -2,9 +2,9 @@
 name: B2B Finished Goods Data Validation
 
 on:
-#   push:
-#     branches:
-#       - main
+  push:
+    branches:
+      - jdc
 #   pull_request:
 #     branches:
 #       - main
