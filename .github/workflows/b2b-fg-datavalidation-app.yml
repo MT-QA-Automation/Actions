@@ -1,5 +1,5 @@
 
-name: B2B Finished Goods - Product Feature Data Validation
+name: B2B Finished Goods Data Validation
 
 on:
   workflow_dispatch:
