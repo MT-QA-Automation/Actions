@@ -1,18 +1,7 @@
 
-name: B2B Finished Goods Data Validation
+name: B2B Finished Goods - Product Feature Data Validation
 
 on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
-#   pull_request_review:
-#     types:
-#       - submitted
-#   schedule:
-#     - cron: '0 4 * * MON-FRI'
   workflow_dispatch:
 
 env:
@@ -20,25 +9,6 @@ env:
   PROJECT_LINK: https://uat-b2b.musictribe.com
 
 jobs:
-  # test-path-json:
-  #   name: Output Test Path From Json
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v3
-  #     with:
-  #       repository: MT-QA-Automation-B2BFinishedGoods/MT-QA-Automation-B2BFinishedGoods
-  #       token: ${{ secrets.MT_RF_REPO_PAT }}
-  #   - id: set_matrix
-  #     run: |
-  #       content="$(cat test-path.json)"
-  #       content="${content//'%'/' '}"
-  #       content="${content//$'\n'/' '}"
-  #       content="${content//$'\r'/' '}"
-  #       echo "json=$content" >> $GITHUB_OUTPUT
-  #   outputs:
-  #     matrix: ${{ steps.set_matrix.outputs.json }}
-
   test-path-json:
     name: Output Test Path From Json
     runs-on: ubuntu-latest
