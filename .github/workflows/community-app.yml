@@ -655,7 +655,7 @@ jobs:
       with:
         name: ${{matrix.name}} Logs
         path: Results
-Join-Us:
+  Join-Us:
     needs: test-path-json
     name: Join Us
     runs-on: windows-latest
