@@ -41,6 +41,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -80,6 +82,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -119,6 +123,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -158,6 +164,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -197,6 +205,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -236,6 +246,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -275,6 +287,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -314,6 +328,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -353,6 +369,8 @@ jobs:
         with:
           repository: MT-QA-Automation-B2B/B2B
           token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - name: Replace Selenium Driver Version
+        run: pip install selenium==4.9.1
       - name: Setup Python 3.9
         uses: actions/setup-python@v2
         with:

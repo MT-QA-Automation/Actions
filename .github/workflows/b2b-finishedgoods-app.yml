@@ -29,6 +29,8 @@ jobs:
       with:
         repository: MT-QA-Automation-B2BFinishedGoods/MT-QA-Automation-B2BFinishedGoods
         token: ${{ secrets.MT_RF_REPO_PAT }}
+    - name: Replace Selenium Driver Version
+      run: pip install selenium==4.9.1
     - id: set_matrix
       run: |
         content="$(cat test-path.json)"
