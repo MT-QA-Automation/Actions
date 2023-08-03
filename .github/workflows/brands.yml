@@ -60,6 +60,8 @@ jobs:
         python-version: 3.9
     - name: Install Python Libraries
       run: pip install -r requirements.txt
+    - name: Replace Selenium Driver Version
+      run: pip install selenium==4.9.1
     - name: Install Chromedriver
       if: ${{ env.BROWSER == 'Chrome' }}
       uses: nanasess/setup-chromedriver@master
