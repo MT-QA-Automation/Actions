@@ -27,6 +27,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
+        node-version: '20'
         repository: MT-QA-Automation-FG/FG
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - id: set_matrix
