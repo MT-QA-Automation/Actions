@@ -27,7 +27,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        repository: MT-QA-Automation-FG/FG
+        repository: MT-QA-Automation-B2BFG/B2BFG
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - id: set_matrix
       run: |
@@ -50,7 +50,7 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
       with:
-        repository: MT-QA-Automation-FG/FG
+        repository: MT-QA-Automation-B2BFG/B2BFG
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Replace Selenium Driver Version
       run: pip install selenium==4.9.1
@@ -88,7 +88,7 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
       with:
-        repository: MT-QA-Automation-FG/FG
+        repository: MT-QA-Automation-B2BFG/B2BFG
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Replace Selenium Driver Version
       run: pip install selenium==4.9.1
