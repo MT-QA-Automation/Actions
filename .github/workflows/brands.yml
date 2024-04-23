@@ -33,17 +33,15 @@ jobs:
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - id: set_matrix
       run: |
-        content="$(cat test-path.json)"
-        content="${content//'%'/'%25'}"
-        content="${content//$'\n'/'%0A'}"
-        content="${content//$'\r'/'%0D'}"
+        content = Get-Content -Raw -Path .\test-path.json
+        content = $content -replace '%', '%25' -replace '\n', '%0A' -replace '\r', '%0D'
         echo "::set-output name=json::$content"
     outputs:
       matrix: ${{ steps.set_matrix.outputs.json }}/
   MDM_Integration:
     needs: test-path-json
     name: MDM Integration
-    runs-on: windows-latest
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
