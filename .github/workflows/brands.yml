@@ -24,7 +24,7 @@ env:
 jobs:
   test-path-json:
     name: Output Test Path From Json
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -54,14 +54,14 @@ jobs:
       with:
         repository: MT-QA-Brands-Automation/Brands
         token: ${{ secrets.MT_RF_REPO_PAT }}
-    - name: Setup Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
+    # - name: Setup Python 3.9
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: 3.9
     - name: Install Python Libraries
       run: pip install -r requirements.txt
-    - name: Replace Selenium Driver Version
-      run: pip install selenium==4.9.1
+    # - name: Replace Selenium Driver Version
+    #   run: pip install selenium==4.9.1
     - name: Install Chromedriver
       if: ${{ env.BROWSER == 'Chrome' }}
       uses: nanasess/setup-chromedriver@master
