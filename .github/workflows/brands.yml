@@ -70,8 +70,8 @@ jobs:
     - name: Install Geckodriver
       if: ${{ env.BROWSER == 'Firefox' }}
       uses: browser-actions/setup-geckodriver@latest
-    - name: Adjust Display Resolution
-      run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
+    # - name: Adjust Display Resolution
+    #   run: Set-DisplayResolution -Width 1920 -Height 1080 -Force
     - name: Run Robot Tests
       run: robot -T -v "BROWSER:${{env.BROWSER}}" -d "Results" -r NONE -e Deferred -i Regression "${{matrix.test-suite}}"
     - name: Upload Artifacts
