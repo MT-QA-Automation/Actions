@@ -56,6 +56,10 @@ jobs:
     #   uses: actions/setup-python@v2
     #   with:
     #     python-version: 3.11
+    - name: Debug
+      run: |
+        echo "Python version: $(python --version)"
+        echo "PATH: $PATH"
     - name: Install Python Libraries
       run: pip install -r requirements.txt
     # - name: Replace Selenium Driver Version
