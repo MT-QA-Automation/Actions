@@ -27,13 +27,13 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: MT-QA-Brands-Automation/Brands
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - id: set_matrix
       run: |
-        $content = Get-Content -Raw -Path .\test-path.json
+        $content = Get-Content -Raw -Path C:\actions-runner\_work\Actions\Actions\test-path.json
         $content = $content -replace '%', '%25' -replace '\n', '%0A' -replace '\r', '%0D'
         echo "::set-output name=json::$content"
     outputs:
@@ -48,7 +48,7 @@ jobs:
         include: ${{fromJson(needs.test-path-json.outputs.matrix).MDM_Integration}}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: MT-QA-Brands-Automation/Brands
         token: ${{ secrets.MT_RF_REPO_PAT }}
