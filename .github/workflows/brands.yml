@@ -53,9 +53,9 @@ jobs:
         repository: MT-QA-Brands-Automation/Brands
         token: ${{ secrets.MT_RF_REPO_PAT }}
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v2
       with:
-            python-version: '3.9' 
+            python-version: '3.8' 
     - name: Debug
       run: |
         echo "Python version: $(python --version)"
