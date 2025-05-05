@@ -5,7 +5,7 @@ on:
   
 env:
   BROWSER: Chrome
-  LINK_B2B: https://oatest.musictribe.com
+  LINK_OA: https://oatest.musictribe.com
   
 jobs:
   test-path-json:
