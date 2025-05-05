@@ -1,0 +1,28 @@
+name: Office Automation
+
+on:
+  workflow_dispatch: null
+  
+env:
+  BROWSER: Chrome
+  LINK_B2B: https://oatest.musictribe.com
+  
+jobs:
+  test-path-json:
+    name: Output Test Path From Json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: MT-QA-Automation-Office/OfficeAutomation
+          token: '${{ secrets.MT_RF_REPO_PAT }}'
+      - id: set_matrix
+        run: |
+          content="$(cat test-path.json)"
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          echo "::set-output name=json::$content"
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.json }}
